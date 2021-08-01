@@ -28,7 +28,8 @@ async function git_til(users, callName) {
   .toLocaleDateString()
   .replace(/\. /gi, '-')
   .slice(0, -1);
- console.log(preDate);
+ console.log(preDate, new Date(gapTime)
+ .toLocaleDateString());
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
  ).then((res) =>
