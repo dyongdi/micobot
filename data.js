@@ -20,12 +20,12 @@ async function git_til(users, callName) {
  let gapTime;
 
  if (date.getDay() === 1) {
-  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 2;
+  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
  } else {
   gapTime = date.getTime() - 24 * 60 * 60 * 1000;
  }
- const preDate = new Date(gapTime).toISOString().slice(0, 10);
- console.log(preDate);
+ const preDate = new Date(gapTime).toLocaleDateString().replace(/\. /gi,"-").slice(0,-1)
+
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
  ).then((res) =>
