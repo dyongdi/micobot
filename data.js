@@ -42,9 +42,9 @@ async function git_til(users) {
         }  
     })
  }
- console.log(Array.from(users).join(','));
  
- return Array.from(users).join(',');
+ 
+ return Array.from(users);
 }
 
 module.exports.git_til = git_til;
