@@ -7,17 +7,27 @@ var express = require('express');
 var app = express();
 console.log(process.env.SLACK_SECRET);
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
-app.use(express.urlencoded({ extended: false }));
 
-app.use(express.json());
+const token = process.env.SLACK_BOT_TOKEN;
+const web = new WebClient(token);
+// app.use(express.urlencoded({ extended: false }));
+
+// app.use(express.json());
 // 메시지 이벤트 구독하기
-slackEvents.on('message', async (event) => {
- console.log(`메시지 수신 channel:${event.channel}, text:${event.text}`);
-});
 
 slackEvents.on('message', async (event) => {
  console.log(
   `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
+ );
+
+ const result = await web.chat.postMessage({
+  // We'll add more functionality in the future. We just want to test it works, first
+  text: 'This should output a leaderboard',
+  channel: event.channel,
+ });
+
+ console.log(
+  `Successfully send message ${result.ts} in conversation ${event.channel}`
  );
 
  // const result = await web.chat.postMessage({
