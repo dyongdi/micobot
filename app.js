@@ -39,6 +39,8 @@ const callName = {
  swing: '@Swing',
  eamon: '@Eamon',
  Daisy: '@Daisy',
+ Tami: '@Tami',
+ Seong: '@Seong',
 };
 
 slackEvents.on('message', async (event) => {

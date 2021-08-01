@@ -18,10 +18,10 @@ async function git_til(users, callName) {
  process.env.TZ = 'Asia/Seoul';
  const date = new Date();
  let gapTime;
- console.log(date.getDay());
+
  if (date.getDay() === 1) {
-  console.log('ee');
-  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 2;
+
+  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
  } else {
   gapTime = date.getTime() - 24 * 60 * 60 * 1000;
  }
@@ -45,7 +45,7 @@ async function git_til(users, callName) {
 
  return Array.from(users)
   .map((v) => callName[v])
-  .join(' ,');
+  .join(',');
 }
 
 module.exports.git_til = git_til;
