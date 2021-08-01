@@ -15,6 +15,7 @@ const bodyParser = ({ body, base, user, number }) => {
 };
 
 async function git_til() {
+ process.env.TZ = 'Asia/Seoul';
  const date = new Date();
  let gapTime;
  console.log(date.getDay());
