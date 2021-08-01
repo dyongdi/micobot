@@ -16,7 +16,7 @@ slackEvents.on('message', async (event) => {
 });
 
 app.post('/slack/events', (req, res) => {
- let event = body.event;
+ let event = req.body.event;
  if (req.body.challenge && req.body.type == 'url_verification') {
   res.json({ challenge: req.body.challenge });
  }
