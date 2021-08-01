@@ -15,18 +15,23 @@ const bodyParser = ({ body, base, user, number }) => {
 };
 
 async function git_til() {
-    const date = new Date();
-    let gapTime;
-    if(date.getDay() === 1){
-        gapTime = date.getTime() - 24*60*60*1000*3
-    }else{
-        gapTime = date.getTime() - 24*60*60*1000
-    }
-    const preDate = new Date(gapTime).toISOString().slice(0,10) 
+ const date = new Date();
+ let gapTime;
+ if (date.getDay() === 1) {
+  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
+ } else {
+  gapTime = date.getTime() - 24 * 60 * 60 * 1000;
+ }
+ const preDate = new Date(gapTime).toISOString().slice(0, 10);
 
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
- ).then((res) => res.data.map(bodyParser).filter(({ id, date }) => id !== -1 && date === preDate));
+ ).then((res) =>
+  res.data
+   .map(bodyParser)
+   .filter(({ id, date }) => id !== -1 && date === preDate)
+ );
+ console.log(preDate);
  console.log(result);
  return result;
 }
