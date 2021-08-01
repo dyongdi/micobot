@@ -12,6 +12,8 @@ const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
 const web = new WebClient(process.env.SLACK_BOT_TOKEN);
 const data = require('./data.js')
 const channelName = 'C02AEDASRNC'
+const userName = new Set(['Q', 'Daisy', 'goody', 'adela','Seong','eamon', 'Tami', 'autumn','eve','swing' ])
+
 slackEvents.on('message', async (event) => {
   if (event.channel === channelName && event.text === 'TIL') {
 
@@ -19,7 +21,7 @@ slackEvents.on('message', async (event) => {
     `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
     );
 
-    console.log(data.git_til())
+    console.log(data.git_til(userName))
   const result = await web.chat.postMessage({
    text: 'This should output a leaderboard',
    channel: event.channel,

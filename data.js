@@ -14,14 +14,14 @@ const bodyParser = ({ body, base, user, number }) => {
  };
 };
 
-async function git_til() {
+async function git_til(users) {
  process.env.TZ = 'Asia/Seoul';
  const date = new Date();
  let gapTime;
  console.log(date.getDay());
  if (date.getDay() === 1) {
   console.log('ee');
-  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
+  gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 2;
  } else {
   gapTime = date.getTime() - 24 * 60 * 60 * 1000;
  }
@@ -35,9 +35,16 @@ async function git_til() {
    return id !== -1 && date === preDate;
   })
  );
- console.log(preDate);
- console.log(result);
- return result;
+ if(result){
+    result.forEach(({userName})=>{
+        if(users.has(userName)){
+            users.delete(userName)
+        }  
+    })
+ }
+ console.log(Array.from(users),join(','));
+ 
+ return Array.from(users),join(',');
 }
 
 module.exports.git_til = git_til;
