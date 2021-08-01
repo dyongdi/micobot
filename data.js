@@ -27,9 +27,10 @@ async function git_til() {
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
  ).then((res) =>
-  res.data
-   .map(bodyParser)
-   .filter(({ id, date }) => id !== -1 && date === preDate)
+  res.data.map(bodyParser).filter(({ id, date }) => {
+   console.log(date, preDate, date === preDate);
+   return id !== -1 && date === preDate;
+  })
  );
  console.log(preDate);
  console.log(result);
