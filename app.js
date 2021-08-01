@@ -39,10 +39,8 @@ slackEvents.on('message', async (event) => {
    `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
   );
 
-  const people = data
-   .git_til(userName)
-   .map((v) => callName[v])
-   .join(' ,');
+  const people = await data.git_til(userName, callName);
+
   const result = await web.chat.postMessage({
    text: `어제 안올린 사람: ${people}`,
    channel: event.channel,

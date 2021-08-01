@@ -14,7 +14,7 @@ const bodyParser = ({ body, base, user, number }) => {
  };
 };
 
-async function git_til(users) {
+async function git_til(users, callName) {
  process.env.TZ = 'Asia/Seoul';
  const date = new Date();
  let gapTime;
@@ -31,20 +31,21 @@ async function git_til(users) {
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
  ).then((res) =>
   res.data.map(bodyParser).filter(({ id, date }) => {
-//    console.log(date, preDate, date === preDate);
+   //    console.log(date, preDate, date === preDate);
    return id !== -1 && date === preDate;
   })
  );
- if(result){
-    result.forEach(({userName})=>{
-        if(users.has(userName)){
-            users.delete(userName)
-        }  
-    })
+ if (result) {
+  result.forEach(({ userName }) => {
+   if (users.has(userName)) {
+    users.delete(userName);
+   }
+  });
  }
- 
- 
- return Array.from(users);
+
+ return Array.from(users)
+  .map((v) => callName[v])
+  .join(' ,');
 }
 
 module.exports.git_til = git_til;
