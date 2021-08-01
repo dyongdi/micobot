@@ -15,8 +15,8 @@ const bodyParser = ({ body, base, user, number }) => {
 async function git_til() {
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
- ).then((json) => json.map(bodyParser).filter(({ id }) => id !== -1));
-
+ ).then((res) => res.data.map(bodyParser).filter(({ id }) => id !== -1));
+ console.log(result);
  return result[0];
 }
 
