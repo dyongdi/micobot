@@ -8,13 +8,16 @@ var express = require("express");
 var app = express();
 console.log(process.env.SLACK_SECRET)
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
+app.use(express.urlencoded({ extended: false }));
 
+app.use(express.json()); 
 // 메시지 이벤트 구독하기
 slackEvents.on("message", async (event) => {
   console.log(event);
 });
 
 app.post('/slack/events', (req, res, next) => {
+  console.log(req)
   if ( req.body.challenge && req.body.type == "url_verification" ) {
     res.json({ challenge: req.body.challenge });
 }
