@@ -1,4 +1,5 @@
 const axios = require('axios');
+
 const bodyParser = ({ body, base, user, number }) => {
  const info = body.split('|');
  if (info.length !== 16) return { id: -1 };
@@ -12,12 +13,22 @@ const bodyParser = ({ body, base, user, number }) => {
   date: info[11],
  };
 };
+
 async function git_til() {
+    const date = new Date();
+    let gapTime;
+    if(date.getDay() === 1){
+        gapTime = date.getTime() - 24*60*60*1000*3
+    }else{
+        gapTime = date.getTime() - 24*60*60*1000
+    }
+    const preDate = new Date(gapTime).toISOString().slice(0,10) 
+
  const result = await axios(
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
- ).then((res) => res.data.map(bodyParser).filter(({ id }) => id !== -1));
+ ).then((res) => res.data.map(bodyParser).filter(({ id, date }) => id !== -1 && date === preDate));
  console.log(result);
- return result[0];
+ return result;
 }
 
 module.exports.git_til = git_til;
