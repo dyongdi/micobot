@@ -32,7 +32,7 @@ slackEvents.on('message', async (event) => {
 slackEvents.on('error', console.error);
 
 slackEvents.start(3000).then(() => {
- console.log(`server listening on port ${port}`);
+ console.log(`server listening `);
 });
 
 // app.use('/slack/events', slackEvents.requestListener());
