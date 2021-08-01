@@ -17,6 +17,7 @@ const bodyParser = ({ body, base, user, number }) => {
 async function git_til() {
  const date = new Date();
  let gapTime;
+ console.log(date.getDay());
  if (date.getDay() === 1) {
   console.log('ee');
   gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
