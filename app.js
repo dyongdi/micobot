@@ -2,20 +2,25 @@ const { createEventAdapter } = require('@slack/events-api');
 const { WebClient } = require('@slack/web-api');
 require('dotenv').config();
 
+
+
 // 슬랙에서 슬랙봇에게 접근가능한 엔드포인트를 만들기 위해 웹서버(express)를 사용
 var express = require('express');
 var app = express();
 console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
 const web = new WebClient(process.env.SLACK_BOT_TOKEN);
-
+const data = require('./data.js')
+const channelName = 'C02AEDASRNC'
 slackEvents.on('message', async (event) => {
- console.log(
-  `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
- );
- if (event.channel === 'C02AEDASRNC' && event.text === 'TIL') {
+  if (event.channel === channelName && event.text === 'TIL') {
+
+    console.log(
+    `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
+    );
+
+    console.log(data.git_til())
   const result = await web.chat.postMessage({
-   // We'll add more functionality in the future. We just want to test it works, first
    text: 'This should output a leaderboard',
    channel: event.channel,
   });
