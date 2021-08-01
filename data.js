@@ -18,6 +18,7 @@ async function git_til() {
  const date = new Date();
  let gapTime;
  if (date.getDay() === 1) {
+  console.log('ee');
   gapTime = date.getTime() - 24 * 60 * 60 * 1000 * 3;
  } else {
   gapTime = date.getTime() - 24 * 60 * 60 * 1000;
