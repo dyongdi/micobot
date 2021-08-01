@@ -6,9 +6,17 @@ require('dotenv').config();
 var express = require('express');
 var app = express();
 console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
+if (!process.env.SLACK_SECRET) {
+ throw new Error('SLACK_SECRET is undefined');
+}
+
+if (!process.env.SLACK_BOT_TOKEN) {
+ throw new Error('SLACK_BOT_TOKEN is undefined');
+}
+
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
 const web = new WebClient(process.env.SLACK_BOT_TOKEN);
-const data = require('./data.js');
+const til = require('./data.js');
 const channelName = 'C02AEDASRNC';
 const userName = new Set([
  'Q',
@@ -34,16 +42,16 @@ const callName = {
 };
 
 slackEvents.on('message', async (event) => {
+ console.log(event.channel);
  if (event.channel === channelName && event.text === 'TIL') {
   console.log(
    `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
   );
 
-  const people = await data.git_til(userName, callName);
-
+  const people = await til.git_til(userName, callName);
   const result = await web.chat.postMessage({
    text: `어제 안올린 사람: ${people}`,
-   channel: event.channel,
+   channel: 'test',
   });
 
   console.log(
