@@ -9,26 +9,22 @@ console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
 const web = new WebClient(process.env.SLACK_BOT_TOKEN);
 
-
 slackEvents.on('message', async (event) => {
  console.log(
   `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
  );
-if(event.channel === "C02AEDASRNC" &&event.text === "TIL")
- const result = await web.chat.postMessage({
-  // We'll add more functionality in the future. We just want to test it works, first
-  text: 'This should output a leaderboard',
-  channel: event.channel,
- });
+ if (event.channel === 'C02AEDASRNC' && event.text === 'TIL') {
+  const result = await web.chat.postMessage({
+   // We'll add more functionality in the future. We just want to test it works, first
+   text: 'This should output a leaderboard',
+   channel: event.channel,
+  });
 
- console.log(
-  `Successfully send message ${result.ts} in conversation ${event.channel}`
- );
-
+  console.log(
+   `Successfully send message ${result.ts} in conversation ${event.channel}`
+  );
+ }
 });
-
-
-
 
 slackEvents.on('error', console.error);
 
