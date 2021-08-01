@@ -12,18 +12,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // 메시지 이벤트 구독하기
 slackEvents.on('message', async (event) => {
-  if (event.text === "안녕") {
-    console.log(
-      `메시지 수신 channel:${event.channel}, user:${event.user}`
-    );
+ console.log(`메시지 수신 channel:${event.channel}, user:${event.user}`);
 });
 
 app.post('/slack/events', (req, res) => {
  if (req.body.challenge && req.body.type == 'url_verification') {
   res.json({ challenge: req.body.challenge });
  }
-
- 
 });
 // 메지지 이벤트 엔드포인트를 express 에 등록하기
 app.use('/slack/events', slackEvents.requestListener());
@@ -32,4 +27,3 @@ app.use('/slack/events', slackEvents.requestListener());
 createServer(app).listen(3000, () => {
  console.log('run slack bot');
 });
-
