@@ -1,5 +1,5 @@
 
-const { createEventAdapter } = require("@slack/events-api");
+// const { createEventAdapter } = require("@slack/events-api");
 const { createServer } = require("http");
 require("dotenv").config();
 
