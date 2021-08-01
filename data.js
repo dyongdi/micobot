@@ -31,7 +31,7 @@ async function git_til(users) {
   'https://api.github.com/repos/GleamingStar/miracle-coding/pulls?state=closed'
  ).then((res) =>
   res.data.map(bodyParser).filter(({ id, date }) => {
-   console.log(date, preDate, date === preDate);
+//    console.log(date, preDate, date === preDate);
    return id !== -1 && date === preDate;
   })
  );
@@ -42,9 +42,9 @@ async function git_til(users) {
         }  
     })
  }
- console.log(Array.from(users),join(','));
+ console.log(Array.from(users).join(','));
  
- return Array.from(users),join(',');
+ return Array.from(users).join(',');
 }
 
 module.exports.git_til = git_til;
