@@ -2,9 +2,9 @@
   "name": "micobot",
   "version": "1.0.0",
   "description": "미라클코딩의 슬랙 채널 봇",
-  "main": "test.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
