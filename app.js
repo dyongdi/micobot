@@ -16,8 +16,12 @@ slackEvents.on('message', async (event) => {
 });
 
 app.post('/slack/events', (req, res) => {
+ let event = body.event;
  if (req.body.challenge && req.body.type == 'url_verification') {
   res.json({ challenge: req.body.challenge });
+ }
+ if (event.type === 'message') {
+  console.log(`메시지 수신 channel:${event.channel}, user:${event.user}`);
  }
 });
 // 메지지 이벤트 엔드포인트를 express 에 등록하기
