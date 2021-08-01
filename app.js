@@ -5,21 +5,16 @@ require('dotenv').config();
 // 슬랙에서 슬랙봇에게 접근가능한 엔드포인트를 만들기 위해 웹서버(express)를 사용
 var express = require('express');
 var app = express();
-console.log(process.env.SLACK_SECRET);
+console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
 const slackEvents = createEventAdapter(process.env.SLACK_SECRET);
+const web = new WebClient(process.env.SLACK_BOT_TOKEN);
 
-const token = process.env.SLACK_BOT_TOKEN;
-const web = new WebClient(token);
-// app.use(express.urlencoded({ extended: false }));
-
-// app.use(express.json());
-// 메시지 이벤트 구독하기
 
 slackEvents.on('message', async (event) => {
  console.log(
   `Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`
  );
-
+if(event.channel === "C02AEDASRNC" &&event.text === "TIL")
  const result = await web.chat.postMessage({
   // We'll add more functionality in the future. We just want to test it works, first
   text: 'This should output a leaderboard',
@@ -30,14 +25,10 @@ slackEvents.on('message', async (event) => {
   `Successfully send message ${result.ts} in conversation ${event.channel}`
  );
 
- // const result = await web.chat.postMessage({
- //   // We'll add more functionality in the future. We just want to test it works, first
- // 	text: 'This should output a leaderboard',
- // 	channel: event.channel,
- // });
-
- // console.log(`Successfully send message ${result.ts} in conversation ${event.channel}`);
 });
+
+
+
 
 slackEvents.on('error', console.error);
 
