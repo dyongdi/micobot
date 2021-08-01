@@ -1,5 +1,5 @@
 const { createEventAdapter } = require('@slack/events-api');
-const { createServer } = require('http');
+const { WebClient } = require('@slack/web-api');
 require('dotenv').config();
 
 // 슬랙에서 슬랙봇에게 접근가능한 엔드포인트를 만들기 위해 웹서버(express)를 사용
