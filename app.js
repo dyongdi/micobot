@@ -1,10 +1,12 @@
 const { createEventAdapter } = require('@slack/events-api');
+const { createServer } = require('http');
 const { WebClient } = require('@slack/web-api');
 require('dotenv').config();
 
 // 슬랙에서 슬랙봇에게 접근가능한 엔드포인트를 만들기 위해 웹서버(express)를 사용
 var express = require('express');
 var app = express();
+const port = process.env.PORT || 3000;
 console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
 if (!process.env.SLACK_SECRET) {
  throw new Error('SLACK_SECRET is undefined');
@@ -64,28 +66,12 @@ slackEvents.on('message', async (event) => {
 
 slackEvents.on('error', console.error);
 
-slackEvents.start(3000).then((req,res) => slackEvents.requestListener(req,res));
+app.use('/slack/events', slackEvents.requestListener());
 
+app.use(express.json());
 
-    
-    
-
-
-// app.use('/slack/events', slackEvents.requestListener());
-
-// app.post('/slack/events', (req, res) => {
-//  let event = req.body.event;
-//  if (req.body.challenge && req.body.type == 'url_verification') {
-//   res.json({ challenge: req.body.challenge });
-//  }
-
-// //  if (event.type === 'message') {
-// //   console.log(`메시지 수신 channel:${event.channel}, user:${event.user}`);
-// //  }
-// });
-// 메지지 이벤트 엔드포인트를 express 에 등록하기
-
-// express 웹 서버 실행
-// createServer(app).listen(3000, () => {
-//  console.log('run slack bot');
-// });
+const server = createServer(app);
+server.listen(port, () => {
+ // Log a message when the server is ready
+ console.log(`Listening for events on ${server.address().port}`);
+});
