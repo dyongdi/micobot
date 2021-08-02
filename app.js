@@ -69,9 +69,9 @@ slackEvents.on('error', console.error);
 app.use(express.json());
 app.use('/slack/events', slackEvents.requestListener());
 
-
 const server = createServer(app);
-server.listen(port, () => {
+server.listen(port, (req, res) => {
  // Log a message when the server is ready
  console.log(`Listening for events on ${server.address().port}`);
+ console.log(req);
 });
