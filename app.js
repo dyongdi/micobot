@@ -64,9 +64,12 @@ slackEvents.on('message', async (event) => {
 
 slackEvents.on('error', console.error);
 
-slackEvents.start(3000).then(() => {
- console.log(`server listening `);
-});
+slackEvents.start(3000).then((req,res) => slackEvents.requestListener(req,res));
+
+
+    
+    
+
 
 // app.use('/slack/events', slackEvents.requestListener());
 
