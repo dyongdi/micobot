@@ -4,8 +4,8 @@ const { WebClient } = require('@slack/web-api');
 require('dotenv').config();
 
 // 슬랙에서 슬랙봇에게 접근가능한 엔드포인트를 만들기 위해 웹서버(express)를 사용
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 const port = process.env.PORT || 3000;
 console.log(process.env.SLACK_SECRET, process.env.SLACK_BOT_TOKEN);
 if (!process.env.SLACK_SECRET) {
@@ -66,9 +66,9 @@ slackEvents.on('message', async (event) => {
 
 slackEvents.on('error', console.error);
 
+app.use(express.json());
 app.use('/slack/events', slackEvents.requestListener());
 
-app.use(express.json());
 
 const server = createServer(app);
 server.listen(port, () => {
