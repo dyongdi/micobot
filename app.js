@@ -66,8 +66,8 @@ slackEvents.on('message', async (event) => {
 
 slackEvents.on('error', console.error);
 
-app.use(express.json());
 app.use('/slack/events', slackEvents.requestListener());
+app.use(express.json());
 
 const server = createServer(app);
 server.listen(port, (req, res) => {
